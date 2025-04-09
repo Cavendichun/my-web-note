@@ -4,17 +4,24 @@ import { defineConfig } from "vitepress";
 export default defineConfig({
   title: "Cavendichun的笔记",
   description: "RISE! OR FALL",
+  // appearance: false,
+  markdown: {
+    image: {
+      lazyLoading: true,
+    },
+  },
   themeConfig: {
+    aside: {},
     // https://vitepress.dev/reference/default-theme-config
-    nav: [
-      { text: "Home", link: "/" },
-      { text: "React", link: "/react/fiber概念" },
-    ],
+    nav: [{ text: "React", link: "/react/什么是jsx" }],
 
     sidebar: [
       {
         text: "React",
-        items: [{ text: "Fiber基本概念", link: "/react/fiber概念" }],
+        items: [
+          { text: "什么是JSX？", link: "/react/什么是jsx" },
+          { text: "什么是Fiber架构？", link: "/react/什么是Fiber架构" },
+        ],
       },
     ],
 
