@@ -13,20 +13,28 @@ export default defineConfig({
   themeConfig: {
     aside: {},
     // https://vitepress.dev/reference/default-theme-config
-    nav: [{ text: "React", link: "/react/什么是jsx" }],
+    nav: [
+      { text: "React", link: "/react/什么是JSX/index" },
+      { text: "JS进阶", link: "/javascript/手写完整的Promise" },
+    ],
 
     sidebar: [
       {
         text: "React",
         items: [
-          { text: "什么是JSX？", link: "/react/什么是jsx" },
-          { text: "什么是Fiber架构？", link: "/react/什么是Fiber架构" },
+          { text: "什么是JSX？", link: "/react/什么是JSX/index" },
+          { text: "什么是Fiber架构？", link: "/react/什么是Fiber架构/index" },
+        ],
+      },
+      {
+        text: "JS进阶",
+        items: [
+          { text: "手写完整的Promise", link: "/javascript/手写完整的Promise/index" },
         ],
       },
     ],
-
-    socialLinks: [
-      { icon: "github", link: "https://github.com/vuejs/vitepress" },
-    ],
+    // socialLinks: [
+    //   { icon: "github", link: "https://github.com/vuejs/vitepress" },
+    // ],
   },
 });
