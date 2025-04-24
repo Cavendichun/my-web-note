@@ -26,6 +26,10 @@ export default defineConfig({
               text: 'React原理分析',
               items: [
                 {
+                  text: '一次单纯的渲染流程',
+                  link: '/react/React原理分析/一次单纯的渲染流程/index.md',
+                },
+                {
                   text: 'useContext',
                   link: '/react/React原理分析/useContext/index.md',
                 },
