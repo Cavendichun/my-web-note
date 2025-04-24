@@ -14,7 +14,7 @@ export default defineConfig({
     aside: {},
     // https://vitepress.dev/reference/default-theme-config
     nav: [
-      { text: 'React', link: '/react/什么是JSX/index' },
+      { text: 'React', link: '/react/React原理分析/useContext/index.md' },
       { text: 'JS进阶', link: '/javascript/手写完整的Promise' },
     ],
     sidebar: {
@@ -23,15 +23,11 @@ export default defineConfig({
           text: 'React',
           items: [
             {
-              text: '手写React',
+              text: 'React原理分析',
               items: [
                 {
-                  text: '准备工作',
-                  link: '/react/手写React/准备工作/index.md',
-                },
-                {
-                  text: '实现JSX',
-                  link: '/react/手写React/实现JSX/index.md',
+                  text: 'useContext',
+                  link: '/react/React原理分析/useContext/index.md',
                 },
               ],
             },
