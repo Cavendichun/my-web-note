@@ -7,10 +7,10 @@
 createContext 用来定义一个上下文，返回一个对象，对象中包含一个 Provider，用这个 Provider 包裹需要消费这个上下文的节点，传入 value，被包裹的节点就能获取到该 Provider 所定义的上下文了。
 
 ```jsx
-import { StrictMode, createContext, useContext } from 'react';
-import ReactDOM from 'react-dom/client';
+import { StrictMode, createContext, useContext } from "react";
+import ReactDOM from "react-dom/client";
 
-const SizeContext = createContext('default'); // 定义一个size上下文，默认为default
+const SizeContext = createContext("default"); // 定义一个size上下文，默认为default
 
 const App = () => {
   return (
@@ -32,7 +32,7 @@ const Child = () => {
   );
 };
 
-ReactDOM.createRoot(document.querySelector('#root')).render(
+ReactDOM.createRoot(document.querySelector("#root")).render(
   <StrictMode>
     <App />
   </StrictMode>
@@ -42,10 +42,10 @@ ReactDOM.createRoot(document.querySelector('#root')).render(
 如果没用用 Provider 包裹，直接使用 useContext 的话，获取到的则是定义上下文时传入的默认值。
 
 ```jsx
-import { StrictMode, createContext, useContext } from 'react';
-import ReactDOM from 'react-dom/client';
+import { StrictMode, createContext, useContext } from "react";
+import ReactDOM from "react-dom/client";
 
-const SizeContext = createContext('default');
+const SizeContext = createContext("default");
 
 const App = () => {
   return <Child />; // 没有使用Provider包裹
@@ -62,7 +62,7 @@ const Child = () => {
   );
 };
 
-ReactDOM.createRoot(document.querySelector('#root')).render(
+ReactDOM.createRoot(document.querySelector("#root")).render(
   <StrictMode>
     <App />
   </StrictMode>
@@ -74,10 +74,10 @@ ReactDOM.createRoot(document.querySelector('#root')).render(
 可以看出，Provider 也是一个 ReactElement，可以进行嵌套，那如果出现了嵌套的情况，会怎么样呢？对于嵌套 Provider 中的子节点，获取到的上下文是举例自己最近的父祖辈节点定义的上下文，类似全局作用域和局部作用域中，同时定义了一个变量，但生效的是局部作用域。
 
 ```jsx
-import { StrictMode, createContext, useContext } from 'react';
-import ReactDOM from 'react-dom/client';
+import { StrictMode, createContext, useContext } from "react";
+import ReactDOM from "react-dom/client";
 
-const SizeContext = createContext('default');
+const SizeContext = createContext("default");
 
 const App = () => {
   return (
@@ -110,7 +110,7 @@ const Child = () => {
   );
 };
 
-ReactDOM.createRoot(document.querySelector('#root')).render(
+ReactDOM.createRoot(document.querySelector("#root")).render(
   <StrictMode>
     <App />
   </StrictMode>
@@ -133,4 +133,4 @@ React 中存在一个全局的上下文的栈，当 Provider 进入 beginWork �
 
 为什么是链表呢？因为可以对不同的上下文使用 useContext，所有的 useContext 都会保存在 fiber.dependencies 中（所以由此可知，其他的 hook 都会保存在 fiber.memoizedState 中，但 useContext 是个特例，所以他不受 hook 不能条件判断、不能调换顺序等规则的影响）。
 
-当 Provider 节点更新后，会从该 Provider 向下深度优先遍历，查找所有消费了该上下文的节点（查找的规则是：子 fiber 节点的 dependencies 链表中是否包含该上下文），对所有符合条件的节点打上 lane 标记，并使用 scheduleUpdateOnFiber 调度更新，后面就是常规的更新渲染流程了。
+当 Provider 节点更新后，会从该 Provider 向下深度优先遍历，查找所有消费了该上下文的节点（查找的规则是：子 fiber 节点的 dependencies 链表中是否包含该上下文），对所有符合条件的节点的对应 dependency 项打上 lane 标记，并使用 scheduleUpdateOnFiber 调度更新，后面就是常规的更新渲染流程了。

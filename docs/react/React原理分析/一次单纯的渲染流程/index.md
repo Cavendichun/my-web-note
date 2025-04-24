@@ -61,11 +61,11 @@ completeUnitOfWork 的作用是检查当前节点是否有右侧的兄弟节点�
 
 beginWork 先判断当前 fiber 的 tag，执行不同的方法获取到下一级的 ReactElement，比如 HostComponent 的 children 在 props.children 中，HostTextNode 没有 children，FunctionComponent 需要运行 renderWithHooks 拿到 children，Fragment 透传 children 等。
 
-拿到 children 后，将 fiber 和 children 传入 reconcilerChildren 进行一些列的 diff 操作，reconcilerChildren 会将节点打上必要的标记，并绑定好三指针结构，然后将第一个 children 返回给 beginWork
+拿到 children 后，将 fiber 和 children 传入 reconcilerChildren 进行一些列的 diff 操作，reconcilerChildren 会将节点打上必要的标记，并绑定好三指针结构，然后将第一个 children 返回给 beginWork。
 
 ## completeWork
 
-completeWork 会给 fiber 节点按照标记生成对应的真实 dom 节点，存在 fiber.stateNode 中，还会将节点的 flag 向上冒泡到父节点的 subtreeFlags 上。
+completeWork 会给 fiber 节点按照标记生成对应的真实 dom 节点，存在 fiber.stateNode 中，还会将节点的 flag 向上冒泡到父节点的 subtreeFlags 上，并且会对比组件的 props，如果不同就打上 Update 标记（比较的规则默认是浅比较，但对于一些特殊属性比如 style 和 children，会使用进行逐字段比较，对于 HostComponent 的属性，会使用===比较）
 
 ## reconcilerChildren
 
@@ -113,4 +113,8 @@ reconcilerChildren 是节点的 diff 阶段，diff 是新的 ReactElement 和旧
 
 :::
 
-## 过程中存在的性能优化点
+## 过程中存在的性能优化的点
+
+1. 在对节点进行 diff 的过程中，有的节点需要打上 Placement 标记，但有时候会出现，整一棵子树全都是新挂载的情况，比如首次渲染的时候，HostRootFiber 下面的所有节点都是初次挂载。如果给子树上所有的节点全都打上 Placement 标记的话，在进入 commit 阶段时，每个标记都会对应一次真实的 DOM 操作，所以针对这一点，React 有性能优化的手段：只给 fiber.alternate 不为空的节点打标记，如果 fiber.alternate 为空的话，则忽略打标记，得到的效果就是，针对整棵子树全都时初次挂载的情况，只有子树的根节点会被打 Placement 标记，通过这种策略，就能把连续 Placement 节点的插入操作，变成一次操作。
+
+2. 多节点 diff 时，如果不指定 key，会默认使用 index 作为 key，假设一个极端情况：所有节点 type 都是 div 并且未执行 key，新节点是旧节点的倒置。对于这种情况，第一轮遍历的时候，会判定所有节点都被服用但所有节点的内容都被更新，就会有 n 次 dom 操作。如果指定了 key 的话，第一轮遍历直接退出，第二轮遍历会认为所有节点都可以复用，但有一般的节点需要向右移动，这样就会有 n/2 次 dom 操作，可以提高性能。

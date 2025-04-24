@@ -1,9 +1,9 @@
-import { defineConfig } from 'vitepress';
+import { defineConfig } from "vitepress";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: 'Cavendichun的笔记',
-  description: 'RISE! OR FALL',
+  title: "Cavendichun的笔记",
+  description: "RISE! OR FALL",
   // appearance: false,
   markdown: {
     image: {
@@ -14,37 +14,41 @@ export default defineConfig({
     aside: {},
     // https://vitepress.dev/reference/default-theme-config
     nav: [
-      { text: 'React', link: '/react/React原理分析/useContext/index.md' },
-      { text: 'JS进阶', link: '/javascript/手写完整的Promise' },
+      { text: "React", link: "/react/React原理分析/useContext/index.md" },
+      { text: "JS进阶", link: "/javascript/手写完整的Promise" },
     ],
     sidebar: {
-      '/react/': [
+      "/react/": [
         {
-          text: 'React',
+          text: "React",
           items: [
             {
-              text: 'React原理分析',
+              text: "React原理分析",
               items: [
                 {
-                  text: '一次单纯的渲染流程',
-                  link: '/react/React原理分析/一次单纯的渲染流程/index.md',
+                  text: "一次单纯的渲染流程",
+                  link: "/react/React原理分析/一次单纯的渲染流程/index.md",
                 },
                 {
-                  text: 'useContext',
-                  link: '/react/React原理分析/useContext/index.md',
+                  text: "useContext",
+                  link: "/react/React原理分析/useContext/index.md",
+                },
+                {
+                  text: "bailout和eagerState",
+                  link: "/react/React原理分析/bailout和eagerState/index.md",
                 },
               ],
             },
           ],
         },
       ],
-      '/javascript/': [
+      "/javascript/": [
         {
-          text: 'JS进阶',
+          text: "JS进阶",
           items: [
             {
-              text: '手写完整的Promise',
-              link: '/javascript/手写完整的Promise/index',
+              text: "手写完整的Promise",
+              link: "/javascript/手写完整的Promise/index",
             },
           ],
         },
