@@ -45,8 +45,8 @@ eagerState 在某些情况下可以直接拦截掉一次更新，具体的时机
 举个例子：
 
 ```jsx
-import { useState } from 'react';
-import ReactDOM from 'react-dom/client';
+import { useState } from "react";
+import ReactDOM from "react-dom/client";
 
 const App = () => {
   const [num, setNum] = useState(0);
@@ -61,12 +61,12 @@ const App = () => {
 };
 
 const Child = ({ num }) => {
-  console.log('Child render');
+  console.log("Child render");
 
   return <div>Child{num}</div>;
 };
 
-ReactDOM.createRoot(document.querySelector('#root')).render(<App />);
+ReactDOM.createRoot(document.querySelector("#root")).render(<App />);
 ```
 
 每次点击按钮，会触发 dispatchUpdateState，如果更新链表上没有其他的更新（证明这个是第一个更新，实际使用时大部分都是这种情况），就会直接计算出新的状态，如果新的状态和旧的状态相同，就会直接跳出，不生成新的 update。
@@ -74,9 +74,9 @@ ReactDOM.createRoot(document.querySelector('#root')).render(<App />);
 ## eagerState 一个诡异的现象
 
 ```jsx
-import { useState } from 'react';
-import { StrictMode, createContext, useContext } from 'react';
-import ReactDOM from 'react-dom/client';
+import { useState } from "react";
+import { StrictMode, createContext, useContext } from "react";
+import ReactDOM from "react-dom/client";
 
 const App = () => {
   const [num, setNum] = useState(0);
@@ -91,12 +91,20 @@ const App = () => {
 };
 
 const Child = ({ num }) => {
-  console.log('Child render');
+  console.log("Child render");
 
   return <div>Child{num}</div>;
 };
 
-ReactDOM.createRoot(document.querySelector('#root')).render(<App />);
+ReactDOM.createRoot(document.querySelector("#root")).render(<App />);
 ```
 
-这段代码中，第一次点击打印 1、Child render，第二次点击打印 1，后续再点击就不会再输出了。
+这段代码中，第一次点击打印 1、Child render，第二次点击打印 1，后续再点击就不会再输出了。通过输出结果，我们能知道：
+
+:::info
+
+- 第一次走正常的更新流程，没什么疑问
+- 第二次只输出 1，明显是命中了降级的 bailout 策略，即发现 App 有更新，执行了 renderWithHooks，发现前后状态一样，然后 bailout 子节点（这里比较怪异）
+- 所有后续点击，没有输出，命中了 eagerState 策略，拦截了更新，没有什么疑问
+
+  :::
