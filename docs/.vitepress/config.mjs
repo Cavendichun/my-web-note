@@ -15,7 +15,7 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: "React", link: "/react/React原理分析/useContext/index.md" },
-      { text: "JS进阶", link: "/javascript/手写完整的Promise" },
+      { text: "JS进阶", link: "/javascript/手写完整的Promise/index.md" },
     ],
     sidebar: {
       "/react/": [
@@ -50,6 +50,10 @@ export default defineConfig({
               text: "手写完整的Promise",
               link: "/javascript/手写完整的Promise/index",
             },
+            {
+              text: '从React的Suspense原理联想到消除异步传染性',
+              link: '/javascript/从React的Suspense原理联想到消除异步传染性/index'
+            }
           ],
         },
       ],
