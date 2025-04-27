@@ -34,6 +34,10 @@ export default defineConfig({
                   link: "/react/React原理分析/commit流程/index.md",
                 },
                 {
+                  text: "Hooks原理",
+                  link: "/react/React原理分析/hooks原理/index.md",
+                },
+                {
                   text: "useContext",
                   link: "/react/React原理分析/useContext/index.md",
                 },
