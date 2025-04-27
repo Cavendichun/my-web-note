@@ -26,8 +26,12 @@ export default defineConfig({
               text: "React原理分析",
               items: [
                 {
-                  text: "一次单纯的渲染流程",
+                  text: "一次单纯的render流程",
                   link: "/react/React原理分析/一次单纯的渲染流程/index.md",
+                },
+                {
+                  text: "Commit流程",
+                  link: "/react/React原理分析/commit流程/index.md",
                 },
                 {
                   text: "useContext",
@@ -51,9 +55,9 @@ export default defineConfig({
               link: "/javascript/手写完整的Promise/index",
             },
             {
-              text: '从React的Suspense原理联想到消除异步传染性',
-              link: '/javascript/从React的Suspense原理联想到消除异步传染性/index'
-            }
+              text: "从React的Suspense原理联想到消除异步传染性",
+              link: "/javascript/从React的Suspense原理联想到消除异步传染性/index",
+            },
           ],
         },
       ],

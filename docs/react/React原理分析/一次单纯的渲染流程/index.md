@@ -63,6 +63,8 @@ beginWork 先判断当前 fiber 的 tag，执行不同的方法获取到下一�
 
 拿到 children 后，将 fiber 和 children 传入 reconcilerChildren 进行一些列的 diff 操作，reconcilerChildren 会将节点打上必要的标记，并绑定好三指针结构，然后将第一个 children 返回给 beginWork。
 
+另外在 renderWithHooks 阶段针对不同的 hook 还会给节点打上额外的 tag，比如 useEffect 的 PassiveEffect，useLayoutEffect 的 LayoutEffect，useContext 的 contextEffect 等。
+
 ## completeWork
 
 completeWork 会给 fiber 节点按照标记生成对应的真实 dom 节点，存在 fiber.stateNode 中，还会将节点的 flag 向上冒泡到父节点的 subtreeFlags 上，并且会对比组件的 props，如果不同就打上 Update 标记（比较的规则默认是浅比较，但对于一些特殊属性比如 style 和 children，会使用进行逐字段比较，对于 HostComponent 的属性，会使用===比较）
