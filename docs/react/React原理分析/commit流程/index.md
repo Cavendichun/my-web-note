@@ -38,11 +38,11 @@ complete 环节中，主要是根据 tag（Placement，Update 等）对 DOM 执�
 
 begin 环节中，向下遍历，做的工作主要是找到最下面带有 layoutMask 的节点，对其执行 complete，还有一个工作是，对于 Offscreen 组件，修改它的 display 属性。
 
-complete 中，向上遍历，对于类组件执行 componentDidMount 或 componentDidUpdate 生命周期，对于函数组件，执行 useEffectLayout。
+complete 中，向上遍历，对于类组件执行 componentDidMount 或 componentDidUpdate 生命周期，对于函数组件，执行 useEffectLayout（先执行所有的销毁函数，再执行所有的更新函数）。
 
 ## Layout 阶段结束后
 
-beforeMutaion 阶段被调度的的 useEffect 函数依次执行。
+beforeMutaion 阶段被调度的的 useEffect 函数依次执行（先执行所有的销毁函数，再执行所有的更新函数）。
 
 ## 为什么 useEffect 是异步执行的，而 useLayoutEffect 不是？
 
